@@ -1,21 +1,22 @@
 from pyzabbix import ZabbixAPI
 import smtplib
 
-IP = 'SomeIP/zabbix'
+ip = 'SomeIP/zabbix'
+user = 'someUser'
+password= 'somePassword'
+from_address = example@zabbix.com
+to_addresses = ["example@email.com","example2@mail.com"]
 
-zAPI = ZabbixAPI(IP, user='user', password='somepass')
-from_address = zabbix@zabbix.zabbix
-to_addresses = ["email1","email2"]
+zAPI = ZabbixAPI(ip, user, password)
 
 hosts = zAPI.host.get(monitored_hosts=1, ouput='extend')
 
 message = "To:"
-message = message + ",".join(str(x) for x in to_addresses)
-message = message + "\n"
-message = message + "Subject: Health Report" + "\n"
-message = message + "Hostname \tError \n";
+message += ",".join(str(x) for x in to_addresses)
+message += "\nSubject: Health Report \n"
+message += "Hostname \tError \n";
 for host in hosts:
-       message = message + host["host"] + "\t" + host["error"] + "\n"
+       message += host["host"] + "\t" + host["error"] + "\n"
 
 mail = smtplib.SMTP()
 mail.connect()
