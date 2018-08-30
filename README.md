@@ -1,5 +1,8 @@
 # zabbix-hearthbeat
 Sends daily a summary of all hosts with the errors with help of an python3 script. 
+
+Tested with zabbix 3.4-2 on CentOS running mysql
+
 ### Requirements:
 - Python3
 - Pip
